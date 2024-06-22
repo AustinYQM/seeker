@@ -24,28 +24,16 @@ public class ArtistEntity {
     private String artistName;
 
     @ManyToMany(mappedBy = "artist")
-    private Set<LessonEntity> lessonCards;
+    private Set<CardEntity> cards;
     
-    @ManyToMany(mappedBy = "artist")
-    private Set<CreatureEntity> creatureCards;
-
-    public void addLesson(LessonEntity lesson) {
-        lessonCards.add(lesson);
-        lesson.getArtist().add(this);
+    public void addCard(CardEntity card) {
+        this.cards.add(card);
+        card.getArtist().add(this);
     }
-
-    public void removeLesson(LessonEntity lesson) {
-        lessonCards.remove(lesson);
-        lesson.getArtist().remove(this);
+    public void removeCard(CardEntity card) {
+        this.cards.remove(card);
+        card.getArtist().remove(this);
     }
+    
 
-    public void addCreature(CreatureEntity creature) {
-        creatureCards.add(creature);
-        creature.getArtist().add(this);
-    }
-
-    public void removecreature(CreatureEntity creature) {
-        creatureCards.remove(creature);
-        creature.getArtist().remove(this);
-    }
 }

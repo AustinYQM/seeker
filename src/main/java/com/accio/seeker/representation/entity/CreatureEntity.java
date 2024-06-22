@@ -1,57 +1,52 @@
 package com.accio.seeker.representation.entity;
 
-import com.accio.seeker.representation.enums.ECardType;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.Column;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
-import jakarta.persistence.Transient;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import java.util.Set;
 import lombok.Getter;
-import lombok.Setter;
 
 @Entity
-@Table(name = "creature")
+@DiscriminatorValue("creature")
 @Getter
-@Setter
-public class CreatureEntity {
-  @Id
-  @GeneratedValue(strategy = GenerationType.SEQUENCE)
-  @Column(name = "id", nullable = false)
-  private Long id;
+public class CreatureEntity extends CardEntity {
 
-  private String cardName;
-  private String treatment;
-  private int setNumber;
+    private int cost;
+    private String description;
+    private int dmgEachTurn;
+    private int health;
+    private String flavorText;
+    
+    @ManyToMany
+    @JoinTable(
+            name = "creature_subtype",
+            joinColumns = @JoinColumn(name = "creature_id"),
+            inverseJoinColumns = @JoinColumn(name = "subtype_id"))
+    private Set<SubtypeEntity> subTypes;
+    
+    
 
-  @JsonIgnore
-  @ManyToOne
-  private SetEntity set;
-  
-  
-  private int cost;
-  private ECardType cardType = ECardType.CREATURE;
-  //TODO ManyToMany subtypes
-  private String description;
-  private int dmgEachTurn;
-  private int health;
-  private String flavorText;
-  private String rarity;
-
-  @ManyToMany
-  @JoinTable(
-      name = "creature_artist",
-      joinColumns = @JoinColumn(name = "creature_id"),
-      inverseJoinColumns = @JoinColumn(name = "artist_id")
-  )
-  Set<ArtistEntity> artist;
-
-
+    @ManyToMany
+    @JoinTable(
+            name = "creature_artist",
+            joinColumns = @JoinColumn(name = "creature_id"),
+            inverseJoinColumns = @JoinColumn(name = "artist_id"))
+    Set<ArtistEntity> artist;
+    
+    
+    // Below are helper methods to manage bidirectional relationships
+    public void addSubType(SubtypeEntity subtype) {
+        subTypes.add(subtype);
+        subtype.getCreatures().add(this);
+    }
+    public void removeSubType(SubtypeEntity subtype) {
+        subTypes.remove(subtype);
+        subtype.getCreatures().remove(this);
+    }
 }
