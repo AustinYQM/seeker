@@ -7,6 +7,7 @@ public enum ECardType {
     ADVENTURE("Adventure"),
     CHARACTER("Character"),
     CREATURE("Creature"),
+    EVENT("Event"),
     ITEM("Item"),
     LESSON("Lesson"),
     LOCATION("Location"),
@@ -24,6 +25,7 @@ public enum ECardType {
             case "adventure" -> ADVENTURE;
             case "character" -> CHARACTER;
             case "creature" -> CREATURE;
+            case "event" -> EVENT;
             case "item" -> ITEM;
             case "lesson" -> LESSON;
             case "location" -> LOCATION;
