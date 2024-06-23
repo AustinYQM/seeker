@@ -1,54 +1,95 @@
 package com.accio.seeker.service;
 
+import com.accio.seeker.repository.CardRepository;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import org.springframework.boot.autoconfigure.mail.MailProperties;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
+@RequiredArgsConstructor
 public class CardService {
-  
-  public String parseSearchText(String searchText) {
-    //Sanatize input to all lowercase, so we don't have to worry about that
-    searchText = searchText.toLowerCase();
+    
+    private final CardRepository cardRepository;
+    public boolean testMethod() {
+        return cardRepository.searchAllText("test") != null;
+    }
 
-    // Split into tokens based on whitespace
-    List<String> tokens = new ArrayList<>(Arrays.asList(searchText.split("\\s+")));
-    Map<String, String> tokenMap = new HashMap<>();
-    //for each token, use startsWith to determine if it is a keyword
-    tokens.forEach(token -> {
-      if (token.startsWith("name")) {
-        tokenMap.put("name", token);
-      } else if (token.startsWith("lesson")) {
-        tokenMap.put("lesson", token);
-      } else if (token.startsWith("power")) {
-        tokenMap.put("power", token);
-      } else if (token.startsWith("type")) {
-        tokenMap.put("type", token);
-      } else if(token.startsWith("keyword")) {
-        tokenMap.put("keyword", token);
-      } else if(token.startsWith("text")) {
-        tokenMap.put("text", token);
-      } else if(token.startsWith("provides")) {
-        tokenMap.put("provides", token);
-      } else if(token.startsWith("flavor")) {
-        tokenMap.put("flavor", token);
-      } else if(token.startsWith("artist")) {
-        tokenMap.put("artist", token);
-      } else if(token.startsWith("rarity")) {
-        tokenMap.put("rarity", token);
-      } else if(token.startsWith("set")) {
-        tokenMap.put("set", token);
-      } else if(token.startsWith("number")) {
-        tokenMap.put("number", token);
-      } 
-    });
+    public String parseSearchText(String searchText) {
+        // Sanatize input to all lowercase, so we don't have to worry about that
+        searchText = searchText.toLowerCase();
+
+        // Split into tokens based on whitespace
+        List<String> tokens = new ArrayList<>(Arrays.asList(searchText.split("\\s+")));
+        List<TokenOperator> tokenOperators = processTokens(tokens);
+        
+       
+
+        // For each token look for */=/|/! and split into key and value
+
+        return searchText;
+    }
     
-    //For each token look for */=/|/! and split into key and value
-    
-    return searchText;
-  }
+    private List<TokenOperator> processTokens(List<String> tokens) {
+        return tokens.stream().map( token -> {
+            TokenOperator.TokenKeyword keyword;
+            TokenOperator.TokenOperand operand;
+            String value;
+            if(token.startsWith("name")) {
+                keyword = TokenOperator.TokenKeyword.NAME;
+                operand = TokenOperator.parseOperand(token.substring(4, 5));
+                value = token.substring(6);
+            } else if(token.startsWith("lesson")) {
+                keyword = TokenOperator.TokenKeyword.LESSON;
+                operand = TokenOperator.parseOperand(token.substring(6, 7));
+                value = token.substring(8);
+            } else if(token.startsWith("power")) {
+                keyword = TokenOperator.TokenKeyword.POWER;
+                operand = TokenOperator.parseOperand(token.substring(5, 6));
+                value = token.substring(7);
+            } else if(token.startsWith("type")) {
+                keyword = TokenOperator.TokenKeyword.TYPE;
+                operand = TokenOperator.parseOperand(token.substring(4, 5));
+                value = token.substring(6);
+            } else if(token.startsWith("keyword")) {
+                keyword = TokenOperator.TokenKeyword.KEYWORD;
+                operand = TokenOperator.parseOperand(token.substring(7, 8));
+                value = token.substring(9);
+            } else if(token.startsWith("text")) {
+                keyword = TokenOperator.TokenKeyword.TEXT;
+                operand = TokenOperator.parseOperand(token.substring(5, 6));
+                value = token.substring(7);
+            } else if(token.startsWith("provides")) {
+                keyword = TokenOperator.TokenKeyword.PROVIDES;
+                operand = TokenOperator.parseOperand(token.substring(8, 9));
+                value = token.substring(10);
+            } else if(token.startsWith("flavor")) {
+                keyword = TokenOperator.TokenKeyword.FLAVOR;
+                operand = TokenOperator.parseOperand(token.substring(7, 8));
+                value = token.substring(9);
+            } else if(token.startsWith("artist")) {
+                keyword = TokenOperator.TokenKeyword.ARTIST;
+                operand = TokenOperator.parseOperand(token.substring(7, 8));
+                value = token.substring(9);
+            } else if(token.startsWith("rarity")) {
+                keyword = TokenOperator.TokenKeyword.RARITY;
+                operand = TokenOperator.parseOperand(token.substring(7, 8));
+                value = token.substring(9);
+            } else if(token.startsWith("set")) {
+                keyword = TokenOperator.TokenKeyword.SET;
+                operand = TokenOperator.parseOperand(token.substring(4, 5));
+                value = token.substring(6);
+            } else if(token.startsWith("number")) {
+                keyword = TokenOperator.TokenKeyword.NUMBER;
+                operand = TokenOperator.parseOperand(token.substring(7, 8));
+                value = token.substring(9);
+            } else {
+                keyword = TokenOperator.TokenKeyword.NONE;
+                operand = TokenOperator.TokenOperand.NONE;
+                value = token;
+            }
+            return new TokenOperator(keyword, operand, value);
+        }).toList();
+    }
 }
