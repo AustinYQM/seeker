@@ -23,11 +23,9 @@ public class SetEntity {
   private Long id;
   
   private String setName;
+  private String setCode;
   private int cardCount;
   
   @OneToMany(mappedBy = "set")
-  private Set<LessonEntity> lessonCards;
-
-  @OneToMany(mappedBy = "set")
-  private Set<CreatureEntity> creatureCards;
+  private Set<CardEntity> cards;
 }

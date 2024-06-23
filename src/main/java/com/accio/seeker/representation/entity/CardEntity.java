@@ -2,6 +2,7 @@ package com.accio.seeker.representation.entity;
 
 import com.accio.seeker.representation.enums.ECardType;
 import com.accio.seeker.representation.enums.ELesson;
+import com.accio.seeker.representation.enums.ERarity;
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorColumn;
 import jakarta.persistence.Entity;

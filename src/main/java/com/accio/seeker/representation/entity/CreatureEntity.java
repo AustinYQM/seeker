@@ -31,14 +31,6 @@ public class CreatureEntity extends CardEntity {
     private Set<SubtypeEntity> subTypes;
     
     
-
-    @ManyToMany
-    @JoinTable(
-            name = "creature_artist",
-            joinColumns = @JoinColumn(name = "creature_id"),
-            inverseJoinColumns = @JoinColumn(name = "artist_id"))
-    Set<ArtistEntity> artist;
-    
     
     // Below are helper methods to manage bidirectional relationships
     public void addSubType(SubtypeEntity subtype) {
