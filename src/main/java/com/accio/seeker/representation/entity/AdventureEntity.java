@@ -9,10 +9,11 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@DiscriminatorValue("item")
-public class ItemEntity extends CardEntity {
+@DiscriminatorValue("adventure")
+public class AdventureEntity extends CardEntity {
     private int cost;
-    private String description;
-
-    private ECardType cardType = ECardType.ITEM;
+    private ECardType cardType = ECardType.ADVENTURE;
+    private String effect;
+    private String toSolve;
+    private String reward;
 }

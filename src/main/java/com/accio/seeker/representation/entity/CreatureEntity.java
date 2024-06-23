@@ -1,44 +1,21 @@
 package com.accio.seeker.representation.entity;
 
-import jakarta.persistence.CascadeType;
+import com.accio.seeker.representation.enums.ECardType;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
-import java.util.Set;
 import lombok.Getter;
+import lombok.Setter;
 
 @Entity
-@DiscriminatorValue("creature")
 @Getter
+@Setter
+@DiscriminatorValue("creature")
 public class CreatureEntity extends CardEntity {
 
     private int cost;
     private String description;
     private int dmgEachTurn;
     private int health;
-    private String flavorText;
-    
-    @ManyToMany
-    @JoinTable(
-            name = "creature_subtype",
-            joinColumns = @JoinColumn(name = "creature_id"),
-            inverseJoinColumns = @JoinColumn(name = "subtype_id"))
-    private Set<SubtypeEntity> subTypes;
-    
-    
-    
-    // Below are helper methods to manage bidirectional relationships
-    public void addSubType(SubtypeEntity subtype) {
-        subTypes.add(subtype);
-        subtype.getCreatures().add(this);
-    }
-    public void removeSubType(SubtypeEntity subtype) {
-        subTypes.remove(subtype);
-        subtype.getCreatures().remove(this);
-    }
+
+    private ECardType cardType = ECardType.CREATURE;
 }

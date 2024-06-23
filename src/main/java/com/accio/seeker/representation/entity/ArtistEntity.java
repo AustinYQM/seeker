@@ -25,15 +25,14 @@ public class ArtistEntity {
 
     @ManyToMany(mappedBy = "artist")
     private Set<CardEntity> cards;
-    
+
     public void addCard(CardEntity card) {
         this.cards.add(card);
         card.getArtist().add(this);
     }
+
     public void removeCard(CardEntity card) {
         this.cards.remove(card);
         card.getArtist().remove(this);
     }
-    
-
 }

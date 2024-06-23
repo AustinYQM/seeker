@@ -13,19 +13,19 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "card_set", indexes = @Index(columnList = "setName"))
 @Getter
 @Setter
+@Table(name = "card_set", indexes = @Index(columnList = "setName"))
 public class SetEntity {
-  @Id
-  @GeneratedValue(strategy = GenerationType.SEQUENCE)
-  @Column(name = "id", nullable = false)
-  private Long id;
-  
-  private String setName;
-  private String setCode;
-  private int cardCount;
-  
-  @OneToMany(mappedBy = "set")
-  private Set<CardEntity> cards;
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "id", nullable = false)
+    private Long id;
+
+    private String setName;
+    private String setCode;
+    private int cardCount;
+
+    @OneToMany(mappedBy = "set")
+    private Set<CardEntity> cards;
 }

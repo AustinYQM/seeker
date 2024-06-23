@@ -6,14 +6,14 @@ import jakarta.persistence.Converter;
 
 @Converter(autoApply = true)
 public class LessonConverter implements AttributeConverter<ELesson, String> {
-  
-  @Override
-  public String convertToDatabaseColumn(ELesson lesson) {
-    return lesson.getShortName();
-  }
-  
-  @Override
-  public ELesson convertToEntityAttribute(String dbData) {
-    return ELesson.fromShortName(dbData);
-  }
+
+    @Override
+    public String convertToDatabaseColumn(ELesson lesson) {
+        return lesson.getShortName();
+    }
+
+    @Override
+    public ELesson convertToEntityAttribute(String dbData) {
+        return ELesson.fromShortName(dbData);
+    }
 }

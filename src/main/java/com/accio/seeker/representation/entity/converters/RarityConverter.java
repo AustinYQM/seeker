@@ -6,14 +6,14 @@ import jakarta.persistence.Converter;
 
 @Converter(autoApply = true)
 public class RarityConverter implements AttributeConverter<ERarity, String> {
-  
-      @Override
-      public String convertToDatabaseColumn(ERarity rarity) {
-          return rarity.getShortName();
-      }
-  
-      @Override
-      public ERarity convertToEntityAttribute(String shortName) {
-          return ERarity.fromShortName(shortName);
-      }
+
+    @Override
+    public String convertToDatabaseColumn(ERarity rarity) {
+        return rarity.getShortName();
+    }
+
+    @Override
+    public ERarity convertToEntityAttribute(String shortName) {
+        return ERarity.fromShortName(shortName);
+    }
 }
