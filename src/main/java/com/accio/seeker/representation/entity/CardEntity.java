@@ -43,7 +43,12 @@ public abstract class CardEntity {
     private SetEntity set;
 
     private ECardType cardType;
-    private ELesson lesson;
+
+    @ElementCollection
+    @JoinTable(name = "card_lessons", joinColumns = @JoinColumn(name = "card_id"))
+    @CollectionTable(name = "card_lessons")
+    private Set<ELesson> lesson = new HashSet<>();
+
     private ERarity rarity;
     private String flavorText;
 
