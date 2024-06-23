@@ -4,6 +4,7 @@ import com.accio.seeker.representation.enums.ECardType;
 import com.accio.seeker.representation.enums.EKeyword;
 import com.accio.seeker.representation.enums.ELesson;
 import com.accio.seeker.representation.enums.ERarity;
+import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorColumn;
 import jakarta.persistence.ElementCollection;
@@ -17,6 +18,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import java.util.HashSet;
 import java.util.Set;
 import lombok.Getter;
@@ -25,6 +27,7 @@ import lombok.Getter;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "TypeOfCard")
 @Getter
+@Table(name = "card")
 public abstract class CardEntity {
 
     @Id
@@ -34,6 +37,8 @@ public abstract class CardEntity {
 
     private String cardName;
     private int setNumber;
+    private String effect;
+
 
     @ManyToOne
     private SetEntity set;
@@ -52,6 +57,7 @@ public abstract class CardEntity {
 
     @ElementCollection
     @JoinTable(name = "card_keywords", joinColumns = @JoinColumn(name = "card_id"))
+    @CollectionTable(name = "card_keywords")
     private Set<EKeyword> subTypes = new HashSet<>();
 
     public void addArtist(ArtistEntity artist) {

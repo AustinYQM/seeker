@@ -12,7 +12,7 @@ public class CardSpecs {
         return (root, query, cb) -> cb.or(
                 cb.like(root.get("cardName"), "%" + text + "%"),
                 cb.like(root.get("cardType"), "%" + text + "%"),
-                cb.like(root.get("description"), "%" + text + "%"),
+                cb.like(root.get("effect"), "%" + text + "%"),
                 cb.like(root.get("flavorText"), "%" + text + "%"),
                 cb.like(root.get("lesson"), "%" + text + "%"),
                 cb.like(root.get("prize"), "%" + text + "%"),

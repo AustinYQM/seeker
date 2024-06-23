@@ -12,7 +12,6 @@ import lombok.Setter;
 @DiscriminatorValue("item")
 public class ItemEntity extends CardEntity {
     private int cost;
-    private String description;
 
     private ECardType cardType = ECardType.ITEM;
 }

@@ -13,7 +13,6 @@ import lombok.Setter;
 public class AdventureEntity extends CardEntity {
     private int cost;
     private ECardType cardType = ECardType.ADVENTURE;
-    private String effect;
     private String toSolve;
     private String reward;
 }

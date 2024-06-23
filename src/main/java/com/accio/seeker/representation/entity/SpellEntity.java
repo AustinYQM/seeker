@@ -11,5 +11,4 @@ import lombok.Setter;
 @DiscriminatorValue("spell")
 public class SpellEntity extends CardEntity {
     private int cost;
-    private String description;
 }

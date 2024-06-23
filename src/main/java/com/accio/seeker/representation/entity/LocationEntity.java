@@ -11,6 +11,5 @@ import lombok.Setter;
 @Setter
 @DiscriminatorValue("location")
 public class LocationEntity extends CardEntity {
-    private String description;
     private ECardType cardType = ECardType.LOCATION;
 }

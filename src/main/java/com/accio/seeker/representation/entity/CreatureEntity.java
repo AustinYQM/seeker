@@ -13,7 +13,6 @@ import lombok.Setter;
 public class CreatureEntity extends CardEntity {
 
     private int cost;
-    private String description;
     private int dmgEachTurn;
     private int health;
 
