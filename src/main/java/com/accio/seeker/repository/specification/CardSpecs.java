@@ -1,9 +1,6 @@
 package com.accio.seeker.repository.specification;
 
 import com.accio.seeker.representation.entity.CardEntity;
-import com.accio.seeker.representation.enums.EKeyword;
-import jakarta.persistence.criteria.Join;
-import jakarta.persistence.criteria.JoinType;
 import org.springframework.data.jpa.domain.Specification;
 
 public class CardSpecs {

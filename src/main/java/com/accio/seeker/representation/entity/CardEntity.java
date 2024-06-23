@@ -39,7 +39,6 @@ public abstract class CardEntity {
     private int setNumber;
     private String effect;
 
-
     @ManyToOne
     private SetEntity set;
 
